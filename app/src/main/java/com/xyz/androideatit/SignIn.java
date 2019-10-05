@@ -11,13 +11,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.common.internal.service.Common;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.rengwuxian.materialedittext.MaterialEditText;
+import com.xyz.androideatit.Common.Common;
 import com.xyz.androideatit.Model.User;
 
 public class SignIn extends AppCompatActivity {
@@ -34,10 +34,9 @@ public class SignIn extends AppCompatActivity {
         btnSignIn = findViewById(R.id.btnSignIn);
 
         //Init Firebase
-
-
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference table_user = database.getReference("User");
+
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,11 +54,11 @@ public class SignIn extends AppCompatActivity {
                             mDialog.dismiss();
                             User user = dataSnapshot.child(edtPhone.getText().toString()).getValue(User.class);
                             if (user.getPassword().equals(edtPassword.getText().toString())) {
-                                Toast.makeText(SignIn.this, "Sign In Successfully", Toast.LENGTH_SHORT).show();
-//                                Intent homeIntent= new Intent(SignIn.this,Home.class);
-//                                Common.currentUse=user;
-//                                startActivity(homeIntent);
-//                                finish();
+
+                                Intent homeIntent= new Intent(SignIn.this,Home.class);
+                                Common.currentUser = user;
+                                startActivity(homeIntent);
+                                finish();
 
                             } else {
                                 Toast.makeText(SignIn.this, "Wrong Password", Toast.LENGTH_SHORT).show();
