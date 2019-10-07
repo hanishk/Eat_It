@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.xyz.androideatit.Common.Common;
 import com.xyz.androideatit.Interface.ItemClickListener;
@@ -45,9 +46,9 @@ public class Home extends AppCompatActivity
     FirebaseDatabase database;
     DatabaseReference category;
 
-    TextView txtFullName;
+    TextView TextFullName;
     RecyclerView recycler_menu;
-    LinearLayoutManager linearLayoutManager;
+    RecyclerView.LayoutManager linearLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,10 +80,10 @@ public class Home extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        // set name for user
+//         set name for user
         View headerView = navigationView.getHeaderView(0);
-        txtFullName = findViewById(R.id.txtFullName);
-        txtFullName.setText(Common.currentUser.getName());
+        TextFullName = headerView.findViewById(R.id.txtFullName);
+        TextFullName.setText(Common.currentUser.getName());
 
         // Load menu
         recycler_menu = findViewById(R.id.recycler_menu);
@@ -96,16 +97,30 @@ public class Home extends AppCompatActivity
     }
 
     private void loadMenu() {
-        FirebaseRecyclerOptions<Category> options =
-                new FirebaseRecyclerOptions.Builder<Category>()
-                        .setQuery(category, Category.class)
-                        .build();
+        FirebaseRecyclerOptions<Category> options;
 
-        FirebaseRecyclerAdapter<Category, MenuViewHolder> adapter = new FirebaseRecyclerAdapter<Category, MenuViewHolder>(options) {
+        final FirebaseRecyclerAdapter<Category, MenuViewHolder> adapter;
+        options = new FirebaseRecyclerOptions.Builder<Category>()
+                .setQuery(category, Category.class)
+                .build();
+
+        adapter = new FirebaseRecyclerAdapter<Category, MenuViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull MenuViewHolder menuViewHolder, int i, @NonNull Category category) {
+            protected void onBindViewHolder(@NonNull MenuViewHolder menuViewHolder, int i,
+                                            @NonNull Category category) {
+
+                Picasso.get().load(category.getImage()).into(menuViewHolder.imageView, new Callback() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        Toast.makeText(Home.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
                 menuViewHolder.txtMenuName.setText(category.getName());
-                Picasso.get().load(category.getImage()).into(menuViewHolder.imageView);
                 final Category clickItem = category;
                 menuViewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
@@ -115,12 +130,14 @@ public class Home extends AppCompatActivity
                 });
             }
 
+
             @NonNull
             @Override
             public MenuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 return null;
             }
         };
+        recycler_menu.setAdapter(adapter);
     }
 
     @Override
