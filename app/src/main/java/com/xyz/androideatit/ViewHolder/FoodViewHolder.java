@@ -10,25 +10,28 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.xyz.androideatit.Interface.ItemClickListener;
 import com.xyz.androideatit.R;
 
-public class MenuViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    public TextView txtMenuName;
-    public ImageView imageView;
+
+    public TextView food_name;
+    public ImageView food_image;
 
     private ItemClickListener itemClickListener;
 
-    public MenuViewHolder(@NonNull View itemView) {
+    public void setItemClickListener(ItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
+    }
+
+    public FoodViewHolder(@NonNull View itemView) {
         super(itemView);
 
-        txtMenuName = itemView.findViewById(R.id.menu_name);
-        imageView = itemView.findViewById(R.id.menu_image);
+
+        food_image = itemView.findViewById(R.id.food_image);
+        food_name = itemView.findViewById(R.id.food_name);
 
         itemView.setOnClickListener(this);
 
-    }
 
-    public void setItemClickListener(ItemClickListener itemClickListener) {
-        this.itemClickListener = itemClickListener;
     }
 
     @Override
@@ -36,4 +39,3 @@ public class MenuViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         itemClickListener.onClick(v, getAdapterPosition(), false);
     }
 }
-

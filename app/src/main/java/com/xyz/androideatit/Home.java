@@ -1,5 +1,6 @@
 package com.xyz.androideatit;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -7,7 +8,6 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -21,9 +21,6 @@ import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.xyz.androideatit.Common.Common;
 import com.xyz.androideatit.Interface.ItemClickListener;
@@ -126,7 +123,11 @@ public class Home extends AppCompatActivity
                 menuViewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
-                        Toast.makeText(Home.this, "" + clickItem.getName(), Toast.LENGTH_SHORT).show();
+                        // get category id and send it to the new activity.
+                        Intent foodIntent = new Intent(Home.this, FoodList.class);
+                        // category id is key,we just get the key of this item
+                        foodIntent.putExtra("CategoryId", adapter.getRef(position).getKey());
+                        startActivity(foodIntent);
                     }
                 });
             }
@@ -136,7 +137,6 @@ public class Home extends AppCompatActivity
             @Override
             public MenuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.menu_item, parent, false);
-
                 return new MenuViewHolder(view);
             }
         };
