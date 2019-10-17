@@ -77,7 +77,6 @@ public class FoodList extends AppCompatActivity {
                     }
                 });
 
-
             }
 
             @NonNull
