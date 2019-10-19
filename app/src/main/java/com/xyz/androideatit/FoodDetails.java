@@ -4,8 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -17,6 +19,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 import com.xyz.androideatit.Model.Food;
+import com.xyz.androideatit.Model.Order;
+
+import Database.Database;
 
 public class FoodDetails extends AppCompatActivity {
 
@@ -27,6 +32,7 @@ public class FoodDetails extends AppCompatActivity {
     ElegantNumberButton numberButton;
 
     String foodId = "";
+    Food currentFood;
 
 
     FirebaseDatabase database;
@@ -44,6 +50,21 @@ public class FoodDetails extends AppCompatActivity {
         //init view
         numberButton = findViewById(R.id.number_button);
         btnCart = findViewById(R.id.btnCart);
+
+        btnCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Database(getBaseContext()).addToCart(new Order(
+                        foodId,
+                        currentFood.getName(),
+                        numberButton.getNumber(),
+                        currentFood.getPrice(),
+                        currentFood.getDiscount()
+
+                ));
+                Toast.makeText(FoodDetails.this, "Added to Cart", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         food_name = findViewById(R.id.food_name);
         food_image = findViewById(R.id.img_food);
@@ -67,16 +88,16 @@ public class FoodDetails extends AppCompatActivity {
         foods.child(foodId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Food food = dataSnapshot.getValue(Food.class);
+                currentFood = dataSnapshot.getValue(Food.class);
 
                 // setting the image from firebase into appbar;
-                Picasso.get().load(food.getImage()).into(food_image);
+                Picasso.get().load(currentFood.getImage()).into(food_image);
                 //set title in appbar
-                collapsingToolbarLayout.setTitle(food.getName());
+                collapsingToolbarLayout.setTitle(currentFood.getName());
 
-                food_price.setText(food.getPrice());
-                food_description.setText(food.getDescription());
-                food_name.setText(food.getName());
+                food_price.setText(currentFood.getPrice());
+                food_description.setText(currentFood.getDescription());
+                food_name.setText(currentFood.getName());
 
 
             }
