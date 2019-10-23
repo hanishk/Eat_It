@@ -2,18 +2,20 @@ package com.xyz.androideatit.Model;
 
 public class User {
 
-    String Name;
-    String Password;
-    String Phone;
+    private String Name;
+    private String Password;
+    private String Phone;
 
 
-    public User(String s, String toString) {
+
+    public User() {
     }
 
-    public User(String name, String password, String phone) {
+
+    public User(String name, String password) {
         Name = name;
         Password = password;
-        Phone = phone;
+
     }
 
     public String getPhone() {

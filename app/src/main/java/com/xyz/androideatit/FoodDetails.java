@@ -18,10 +18,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import com.xyz.androideatit.Database.Database;
 import com.xyz.androideatit.Model.Food;
 import com.xyz.androideatit.Model.Order;
 
-import Database.Database;
 
 public class FoodDetails extends AppCompatActivity {
 
@@ -60,7 +61,6 @@ public class FoodDetails extends AppCompatActivity {
                         numberButton.getNumber(),
                         currentFood.getPrice(),
                         currentFood.getDiscount()
-
                 ));
                 Toast.makeText(FoodDetails.this, "Added to Cart", Toast.LENGTH_SHORT).show();
             }
