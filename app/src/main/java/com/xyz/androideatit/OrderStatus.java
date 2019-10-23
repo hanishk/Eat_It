@@ -38,12 +38,14 @@ public class OrderStatus extends AppCompatActivity {
 
         //firebase init
         database = FirebaseDatabase.getInstance();
-        requests = database.getReference("Request");
+        requests = database.getReference("Requests");
 
-        recyclerView = findViewById(R.id.listCart);
+        recyclerView = findViewById(R.id.listOrders);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+
+
 
         loadOrders(Common.currentUser.getPhone());
     }
