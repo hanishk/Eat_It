@@ -17,7 +17,7 @@
         android:orientation="vertical">
 
 
-        <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
+        <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/editPhoneNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
             app:met_singleLineEllipsis="true" />
 
 
-        <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
+        <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/editName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -49,11 +49,11 @@
             app:met_singleLineEllipsis="true" />
 
 
-        <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
+        <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/editPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Phone Number"
+            android:hint="Password"
             android:inputType="textPassword"
             android:text="1234"
             android:textColor="@android:color/white"

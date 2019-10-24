@@ -31,6 +31,7 @@ public class SignUp extends AppCompatActivity {
         edtPhone = findViewById(R.id.editPhoneNumber);
         edtName = findViewById(R.id.editName);
         edtPassword = findViewById(R.id.editPassword);
+        SignUp = findViewById(R.id.btnSignUp);
 
         // init the firebase
         FirebaseDatabase database = FirebaseDatabase.getInstance();
