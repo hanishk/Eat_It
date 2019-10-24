@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.common.internal.service.Common;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -86,12 +87,12 @@ public class FoodList extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // when user type their text , change the suggest list
                 List<String> suggest = new ArrayList<String>();
-                for (String search : suggestList) {
-                    if (search.toLowerCase().contains(materialSearchBar.getText().toLowerCase())) {
+                for (String search : suggestList) {  // looping di suggestLIst
+                    if (search.toLowerCase().contains(materialSearchBar.getText().toLowerCase()))
                         suggest.add(search);
-                    }
                 }
-                materialSearchBar.setLastSuggestions(suggestList);
+                materialSearchBar.setLastSuggestions(suggest);
+                ;
             }
 
             @Override
@@ -133,13 +134,12 @@ public class FoodList extends AppCompatActivity {
                 foodViewHolder.food_name.setText(food.getName());
                 Picasso.get().load(food.getImage()).into(foodViewHolder.food_image);
 
-                final Food local = food;
                 foodViewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
                         // Start activity of food details
                         Intent foodDetails = new Intent(FoodList.this, FoodDetails.class);
-                        foodDetails.putExtra("FoodId", adapter.getRef(position).getKey()); //send FoodId to new Activity
+                        foodDetails.putExtra("FoodId", searchAdapter.getRef(position).getKey()); //send FoodId to new Activity
                         startActivity(foodDetails);
                     }
                 });
@@ -152,15 +152,15 @@ public class FoodList extends AppCompatActivity {
                 return new FoodViewHolder(view);
             }
         };
-        adapter.startListening();
-        adapter.notifyDataSetChanged();
-        recyclerView.setAdapter(adapter); // set adapter for recycle view is search result
+        searchAdapter.startListening();
+        searchAdapter.notifyDataSetChanged();
+        recyclerView.setAdapter(searchAdapter); // set adapter for recycle view is search result
 
     }
 
 
     private void loadSuggest() {
-        foodList.orderByChild("MenuId").equalTo(categoryId).addValueEventListener(new ValueEventListener() {
+        foodList.orderByChild("menuId").equalTo(categoryId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
@@ -188,7 +188,6 @@ public class FoodList extends AppCompatActivity {
                 foodViewHolder.food_name.setText(food.getName());
                 Picasso.get().load(food.getImage()).into(foodViewHolder.food_image);
 
-                final Food local = food;
                 foodViewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
