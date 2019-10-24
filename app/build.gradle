@@ -20,6 +20,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.github.mancj:MaterialSearchBar:0.8.2'
     implementation 'com.cepheuen.elegant-number-button:lib:1.0.2'
     implementation 'com.google.android.material:material:1.0.0-alpha3'
     implementation 'androidx.appcompat:appcompat:1.0.0'
