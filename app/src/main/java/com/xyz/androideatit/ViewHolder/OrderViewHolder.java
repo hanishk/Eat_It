@@ -12,7 +12,7 @@ import com.xyz.androideatit.R;
 
 public class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    public TextView txtOrderId, txtOrderStatus, txtOrderPhone, txtOrderAddress;
+    public TextView txtOrderId, txtOrderStatus, txtOrderPhone, txtOrderAddress,txtOrderName,txtOrderFood,txtOrderTotal;
 
     private ItemClickListener itemClickListener;
 
@@ -23,6 +23,10 @@ public class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnC
         txtOrderId = itemView.findViewById(R.id.order_id);
         txtOrderStatus = itemView.findViewById(R.id.order_status);
         txtOrderPhone = itemView.findViewById(R.id.order_phone);
+//        txtOrderName = itemView.findViewById(R.id.order_name);
+//        txtOrderFood = itemView.findViewById(R.id.order_food);
+//        txtOrderTotal = itemView.findViewById(R.id.order_total);
+
 
         itemView.setOnClickListener(this);
     }

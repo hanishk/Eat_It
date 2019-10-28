@@ -60,6 +60,37 @@
                 android:text="Address"
                 android:textAllCaps="true"
                 android:textStyle="italic" />
+
+            <!--<TextView-->
+                <!--android:id="@+id/order_name"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:gravity="center_vertical|start"-->
+                <!--android:text="Name"-->
+                <!--android:textAllCaps="true"-->
+                <!--android:textStyle="italic" />-->
+
+
+            <!--<TextView-->
+                <!--android:id="@+id/order_food"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:gravity="center_vertical|start"-->
+                <!--android:text="Order Food"-->
+                <!--android:textAllCaps="true"-->
+                <!--android:textStyle="italic" />-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/order_total"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:gravity="center_vertical|start"-->
+                <!--android:text="Order total"-->
+                <!--android:textAllCaps="true"-->
+                <!--android:textStyle="italic" />-->
         </LinearLayout>
 
 

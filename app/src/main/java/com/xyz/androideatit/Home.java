@@ -25,6 +25,7 @@ import com.squareup.picasso.Picasso;
 import com.xyz.androideatit.Common.Common;
 import com.xyz.androideatit.Interface.ItemClickListener;
 import com.xyz.androideatit.Model.Category;
+import com.xyz.androideatit.Service.ListenOrder;
 import com.xyz.androideatit.ViewHolder.MenuViewHolder;
 
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -102,6 +103,10 @@ public class Home extends AppCompatActivity
         recycler_menu.setLayoutManager(linearLayoutManager);
 
         loadMenu();
+
+        // register the service
+        Intent service = new Intent(Home.this, ListenOrder.class);
+        startService(service);
 
 
     }
