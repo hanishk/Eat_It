@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.rengwuxian.materialedittext.MaterialEditText;
+import com.xyz.androideatit.Common.Common;
 import com.xyz.androideatit.Model.User;
 
 public class SignUp extends AppCompatActivity {
@@ -41,36 +42,42 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                final ProgressDialog mDialog = new ProgressDialog(SignUp.this);
-                mDialog.show();
+                if (Common.isConnectedToInternet(getBaseContext())) {
 
-                table_user.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        // check if user already exits  through phone number
+                    final ProgressDialog mDialog = new ProgressDialog(SignUp.this);
+                    mDialog.show();
 
-                        if (dataSnapshot.child(edtPhone.getText().toString()).exists()) {
-                            mDialog.dismiss();
-                            Toast.makeText(SignUp.this, "User already exists", Toast.LENGTH_SHORT).show();
-                        } else {
-                            mDialog.dismiss();
-                            // add the user with phone number as key value with name and password as child.
-                            // use user class to get the name and password and save it to user object
+                    table_user.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            // check if user already exits  through phone number
 
-                            User user = new User(edtName.getText().toString(), edtPassword.getText().toString());
-                            // below this table user have phone number with value name and pasword through obj user
-                            table_user.child(edtPhone.getText().toString()).setValue(user);
-                            Toast.makeText(SignUp.this, "Sign Up Successfully", Toast.LENGTH_SHORT).show();
-                            finish();
+                            if (dataSnapshot.child(edtPhone.getText().toString()).exists()) {
+                                mDialog.dismiss();
+                                Toast.makeText(SignUp.this, "User already exists", Toast.LENGTH_SHORT).show();
+                            } else {
+                                mDialog.dismiss();
+                                // add the user with phone number as key value with name and password as child.
+                                // use user class to get the name and password and save it to user object
+
+                                User user = new User(edtName.getText().toString(), edtPassword.getText().toString());
+                                // below this table user have phone number with value name and pasword through obj user
+                                table_user.child(edtPhone.getText().toString()).setValue(user);
+                                Toast.makeText(SignUp.this, "Sign Up Successfully", Toast.LENGTH_SHORT).show();
+                                finish();
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
                         }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
+                    });
+                } else {
+                    Toast.makeText(SignUp.this, "Please Check Internet Connection", Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
         });
     }

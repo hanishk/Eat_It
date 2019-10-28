@@ -40,6 +40,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import io.paperdb.Paper;
+
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -73,6 +75,10 @@ public class Home extends AppCompatActivity
         // Init Firebase
         database = FirebaseDatabase.getInstance();
         category = database.getReference("Category");
+
+        // init paper
+        Paper.init(this);
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,7 +108,13 @@ public class Home extends AppCompatActivity
         linearLayoutManager = new LinearLayoutManager(this);
         recycler_menu.setLayoutManager(linearLayoutManager);
 
-        loadMenu();
+
+        if (Common.isConnectedToInternet(getBaseContext()))
+            loadMenu();
+        else {
+            Toast.makeText(Home.this, "Please Check Internet Connection", Toast.LENGTH_LONG).show();
+            return;
+        }
 
         // register the service
         Intent service = new Intent(Home.this, ListenOrder.class);
@@ -170,23 +182,22 @@ public class Home extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        if (item.getItemId() == R.id.nav_refresh) {
+            loadMenu();
+        }
 
-
-        //noinspection SimplifiableIfStatement
 
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_menu) {
+            Intent menuIntent = new Intent(Home.this, Home.class);
+            startActivity(menuIntent);
 
         } else if (id == R.id.nav_cart) {
             Intent cartIntent = new Intent(Home.this, Cart.class);
@@ -197,6 +208,10 @@ public class Home extends AppCompatActivity
             startActivity(orderIntent);
 
         } else if (id == R.id.nav_log_out) {
+
+            // delete remember user and password
+            Paper.book().destroy();
+
             Intent signIn = new Intent(Home.this, SignIn.class);
             signIn.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(signIn);

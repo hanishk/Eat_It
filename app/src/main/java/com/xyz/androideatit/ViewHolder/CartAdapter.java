@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.icu.text.NumberFormat;
 import android.media.Image;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
+import com.xyz.androideatit.Common.Common;
 import com.xyz.androideatit.Interface.ItemClickListener;
 import com.xyz.androideatit.Model.Order;
 import com.xyz.androideatit.R;
@@ -25,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnCreateContextMenuListener {
 
     public TextView txt_cart_name, txt_price;
     public ImageView img_cart_count;
@@ -48,6 +50,12 @@ class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
     @Override
     public void onClick(View v) {
 
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        menu.setHeaderTitle("Select Action");
+        menu.add(0, 0, getAdapterPosition(), Common.DELETE);
     }
 }
 
@@ -84,6 +92,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
 
     @Override
     public int getItemCount() {
-return  listData.size();
+        return listData.size();
     }
 }

@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.icu.text.NumberFormat;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -63,7 +64,10 @@ public class Cart extends AppCompatActivity {
         btnPlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showAlertDialog();
+                if (cart.size() > 0)
+                    showAlertDialog();
+                else
+                    Toast.makeText(Cart.this, "Your Cart is Empty", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -117,6 +121,7 @@ public class Cart extends AppCompatActivity {
     private void loadListFood() {
         cart = new Database(this).getCarts();
         adapter = new CartAdapter(cart, this);
+        adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
 
         //calculating total price
@@ -129,5 +134,24 @@ public class Cart extends AppCompatActivity {
         txtTotalPrice.setText(fmt.format(total));
 
 
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        if (item.getTitle() == Common.DELETE)
+            deleteCart(item.getOrder());
+        return true;
+    }
+
+    private void deleteCart(int order) {
+        // it will remove item at List<Order> by position
+        cart.remove(order);
+        // after that it will delete old data from SQlite
+        new Database(this).cleanCart();
+        // and finally , we will update  new data from List<order> to Sqlite
+        for (Order item : cart)
+            new Database(this).addToCart(item);
+        //referesh
+        loadListFood();
     }
 }

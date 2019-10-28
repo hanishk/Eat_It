@@ -19,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import com.xyz.androideatit.Common.Common;
 import com.xyz.androideatit.Database.Database;
 import com.xyz.androideatit.Model.Food;
 import com.xyz.androideatit.Model.Order;
@@ -79,7 +80,12 @@ public class FoodDetails extends AppCompatActivity {
         if (getIntent() != null)
             foodId = getIntent().getStringExtra("FoodId");
         if (!foodId.isEmpty() && foodId != null)
-            getDetailFood(foodId);
+            if (Common.isConnectedToInternet(getBaseContext()))
+                getDetailFood(foodId);
+            else {
+                Toast.makeText(this, "Please Check the Internet Connection", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
 
     }

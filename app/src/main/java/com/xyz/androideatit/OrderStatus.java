@@ -16,6 +16,7 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.xyz.androideatit.Common.Common;
+import com.xyz.androideatit.Interface.ItemClickListener;
 import com.xyz.androideatit.Model.Food;
 import com.xyz.androideatit.Model.Order;
 import com.xyz.androideatit.Model.Request;
@@ -68,6 +69,12 @@ public class OrderStatus extends AppCompatActivity {
 //                orderViewHolder.txtOrderName.setText(request.getName());
 //                orderViewHolder.txtOrderTotal.setText(request.getTotal());
 //                orderViewHolder.txtOrderFood.setText(request.getFoods().toString());
+                orderViewHolder.setItemClickListener(new ItemClickListener() {
+                    @Override
+                    public void onClick(View view, int position, boolean isLongClik) {
+
+                    }
+                });
 
             }
 
