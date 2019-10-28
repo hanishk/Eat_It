@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
@@ -22,14 +23,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.xyz.androideatit.Common.Common;
 import com.xyz.androideatit.Model.Request;
 import com.xyz.androideatit.OrderStatus;
-import com.xyz.androideatit.R;
 
 
 public class ListenOrder extends Service implements ChildEventListener {
 
     FirebaseDatabase db;
     DatabaseReference requests;
-    NotificationChannel channel;
+    NotificationHelper helper;
 
     @Nullable
     @Override
@@ -42,6 +42,7 @@ public class ListenOrder extends Service implements ChildEventListener {
         super.onCreate();
         db = FirebaseDatabase.getInstance();
         requests = db.getReference("Requests");
+        helper = new NotificationHelper(this);
     }
 
     @Override
@@ -66,24 +67,26 @@ public class ListenOrder extends Service implements ChildEventListener {
     }
 
     private void showNotification(String key, Request request) {
-        Intent intent = new Intent(getBaseContext(), OrderStatus.class);
-        intent.putExtra("userPhone", request.getPhone());
-        PendingIntent contentIntent = PendingIntent.getActivity(getBaseContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getBaseContext());
 
-        builder.setAutoCancel(true)
-                .setDefaults(Notification.DEFAULT_ALL)
-                .setWhen(System.currentTimeMillis())
-                .setTicker("rahmanjai")
-                .setContentInfo("Orderan anda telah di Update")
-                .setContentText("Order " + key + " Telah di update statusnya menjadi " + Common.convertCodeToStatus(request.getStatus()))
-                .setContentIntent(contentIntent)
-                .setContentInfo("Info")
-                .setSmallIcon(R.mipmap.ic_launcher);
+        Notification.Builder builder = helper.getHanishChannelNotification(key, request);
+        helper.getManager().notify(1, builder.build());
 
-        NotificationManager notificationManager = (NotificationManager) getBaseContext().getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(1, builder.build());
+//
+//        NotificationCompat.Builder builder = new NotificationCompat.Builder(getBaseContext());
+//
+//        builder.setAutoCancel(true)
+//                .setDefaults(Notification.DEFAULT_ALL)
+//                .setWhen(System.currentTimeMillis())
+//                .setTicker("rahmanjai")
+//                .setContentInfo("Orderan anda telah di Update")
+//                .setContentText("Order " + key + " Telah di update statusnya menjadi " + Common.convertCodeToStatus(request.getStatus()))
+//                .setContentIntent(contentIntent)
+//                .setContentInfo("Info")
+//                .setSmallIcon(R.mipmap.ic_launcher);
+//
+//        NotificationManager notificationManager = (NotificationManager) getBaseContext().getSystemService(Context.NOTIFICATION_SERVICE);
+//        notificationManager.notify(1, builder.build());
 
     }
 

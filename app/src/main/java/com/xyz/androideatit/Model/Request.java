@@ -2,7 +2,7 @@ package com.xyz.androideatit.Model;
 
 import java.util.List;
 
-public class Request {
+public class Request implements CharSequence {
     private String phone;
     private String name;
     private String address;
@@ -69,5 +69,20 @@ public class Request {
 
     public void setFoods(List<Order> foods) {
         this.foods = foods;
+    }
+
+    @Override
+    public int length() {
+        return 0;
+    }
+
+    @Override
+    public char charAt(int index) {
+        return 0;
+    }
+
+    @Override
+    public CharSequence subSequence(int start, int end) {
+        return null;
     }
 }
