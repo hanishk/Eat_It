@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.style.TtsSpan;
 import android.view.View;
@@ -42,7 +43,20 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                String number = edtPhone.getText().toString();
+                if (number.isEmpty() || number.length() < 13) {
+                    edtPhone.setError("Number is Required");
+                    edtPhone.requestFocus();
+                    return;
+                }
+
                 if (Common.isConnectedToInternet(getBaseContext())) {
+                    String phoneNumber = number;
+
+                    Intent intent = new Intent(SignUp.this, AuthSignUp.class);
+                    intent.putExtra("phoneNumber",phoneNumber);
+                    startActivity(intent);
+
 
                     final ProgressDialog mDialog = new ProgressDialog(SignUp.this);
                     mDialog.show();

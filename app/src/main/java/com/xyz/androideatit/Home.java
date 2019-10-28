@@ -52,17 +52,6 @@ public class Home extends AppCompatActivity
     RecyclerView.LayoutManager linearLayoutManager;
     FirebaseRecyclerAdapter<Category, MenuViewHolder> adapter;
 
-    //    FirebaseRecyclerAdapter<Category, MenuViewHolder> adapter;
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        adapter.startListening();
-//    }
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//        adapter.stopListening();
-//    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,19 +97,15 @@ public class Home extends AppCompatActivity
         linearLayoutManager = new LinearLayoutManager(this);
         recycler_menu.setLayoutManager(linearLayoutManager);
 
-
         if (Common.isConnectedToInternet(getBaseContext()))
             loadMenu();
         else {
             Toast.makeText(Home.this, "Please Check Internet Connection", Toast.LENGTH_LONG).show();
             return;
         }
-
         // register the service
         Intent service = new Intent(Home.this, ListenOrder.class);
         startService(service);
-
-
     }
 
     private void loadMenu() {
@@ -212,9 +197,9 @@ public class Home extends AppCompatActivity
             // delete remember user and password
             Paper.book().destroy();
 
-            Intent signIn = new Intent(Home.this, SignIn.class);
-            signIn.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(signIn);
+            Intent mainActivity = new Intent(Home.this, MainActivity.class);
+            mainActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(mainActivity);
 
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
