@@ -56,7 +56,7 @@ public class NotificationHelper extends ContextWrapper {
                 .setAutoCancel(true)
                 .setWhen(System.currentTimeMillis())
                 .setTicker("Hanish")
-                .setContentText("Your Order is Updated to " + Common.convertCodeToStatus(request.getStatus()))
+                .setContentText("Your Order " + key + "is " + Common.convertCodeToStatus(request.getStatus()))
                 .setContentTitle("Eat It")
                 .setContentIntent(contentIntent)
                 .setSmallIcon(R.mipmap.ic_launcher);
