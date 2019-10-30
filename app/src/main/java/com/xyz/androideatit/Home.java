@@ -87,11 +87,11 @@ public class Home extends AppCompatActivity
 
 
 //         set name for user
-        View headerView = navigationView.getHeaderView(0);
-        TextFullName = headerView.findViewById(R.id.txtFullName);
-        TextFullName.setText(Common.currentUser.getName());
+//        View headerView = navigationView.getHeaderView(0);
+//        TextFullName = headerView.findViewById(R.id.txtFullName);
+//        TextFullName.setText(Common.currentUser.getName());
 
-        // Load menu
+// Load menu
         recycler_menu = findViewById(R.id.recycler_menu);
         recycler_menu.setHasFixedSize(true);
         linearLayoutManager = new LinearLayoutManager(this);

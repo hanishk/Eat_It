@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/my_bg"
     tools:context=".AuthSignUp">
 
     <LinearLayout
@@ -12,10 +13,15 @@
 
 
         <EditText
+
             android:id="@+id/edtOtp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:hint="Enter OTP here.."
             android:padding="15dp"
+            android:textColor="@android:color/white"
             app:et_supportMaxChars="6"></EditText>
 
     </LinearLayout>

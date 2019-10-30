@@ -24,6 +24,7 @@ public class SignUp extends AppCompatActivity {
 
     MaterialEditText edtPhone, edtName, edtPassword;
     Button SignUp;
+    String phoneNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +52,10 @@ public class SignUp extends AppCompatActivity {
                 }
 
                 if (Common.isConnectedToInternet(getBaseContext())) {
-                    String phoneNumber = number;
+                    phoneNumber = number;
 
                     Intent intent = new Intent(SignUp.this, AuthSignUp.class);
-                    intent.putExtra("phoneNumber",phoneNumber);
+                    intent.putExtra("phoneNumber", phoneNumber);
                     startActivity(intent);
 
 
