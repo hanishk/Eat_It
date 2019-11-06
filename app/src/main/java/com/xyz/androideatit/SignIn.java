@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +28,7 @@ public class SignIn extends AppCompatActivity {
     EditText edtPhone, edtPassword;
     Button btnSignIn;
     CheckBox ckbRemember;
+    TextView forgetPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class SignIn extends AppCompatActivity {
         edtPhone = findViewById(R.id.editPhoneNumber);
         btnSignIn = findViewById(R.id.btnSignIn);
         ckbRemember = findViewById(R.id.ckbRemeber);
+        forgetPassword = findViewById(R.id.forgetPassword);
 
         // init paper
         Paper.init(this);
@@ -99,6 +102,21 @@ public class SignIn extends AppCompatActivity {
                     Toast.makeText(SignIn.this, "Please Check Internet Connection", Toast.LENGTH_SHORT).show();
                     return;
                 }
+            }
+        });
+
+        forgetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (Common.isConnectedToInternet(getBaseContext())) {
+                    Intent forgetIntent = new Intent(SignIn.this, forgetPassword.class);
+                    startActivity(forgetIntent);
+                } else {
+                    Toast.makeText(SignIn.this, "Please Check Internet Connection", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
             }
         });
     }

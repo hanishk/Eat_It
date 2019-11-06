@@ -6,15 +6,25 @@ public class User {
     private String Password;
     private String Phone;
     private String IsStaff;
+    private  String ResetPass;
 
 
     public User() {
     }
 
 
-    public User(String name, String password) {
+    public String getResetPass() {
+        return ResetPass;
+    }
+
+    public void setResetPass(String resetPass) {
+        ResetPass = resetPass;
+    }
+
+    public User(String name, String password, String resetPass) {
         Name = name;
         Password = password;
+        ResetPass = resetPass;
         IsStaff = "false";
 
     }

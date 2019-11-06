@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.style.TtsSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -22,7 +21,7 @@ import com.xyz.androideatit.Model.User;
 
 public class SignUp extends AppCompatActivity {
 
-    MaterialEditText edtPhone, edtName, edtPassword;
+    MaterialEditText edtPhone, edtName, edtPassword, edtEmail;
     Button SignUp;
     String phoneNumber;
 
@@ -35,6 +34,7 @@ public class SignUp extends AppCompatActivity {
         edtName = findViewById(R.id.editName);
         edtPassword = findViewById(R.id.editPassword);
         SignUp = findViewById(R.id.btnSignUp);
+        edtEmail = findViewById(R.id.editEmail);
 
         // init the firebase
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -75,12 +75,11 @@ public class SignUp extends AppCompatActivity {
                                 // add the user with phone number as key value with name and password as child.
                                 // use user class to get the name and password and save it to user object
 
-                                User user = new User(edtName.getText().toString(), edtPassword.getText().toString());
+                                User user = new User(edtName.getText().toString(), edtPassword.getText().toString(), edtEmail.getText().toString());
                                 // below this table user have phone number with value name and pasword through obj user
                                 table_user.child(edtPhone.getText().toString()).setValue(user);
                                 Toast.makeText(SignUp.this, "Sign Up Successfully", Toast.LENGTH_SHORT).show();
                                 finish();
-
                             }
                         }
 

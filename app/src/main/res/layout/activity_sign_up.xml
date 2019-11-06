@@ -62,6 +62,19 @@
             app:met_primaryColor="@android:color/white"
             app:met_singleLineEllipsis="true" />
 
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/editEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:textSize="34sp"
+            app:met_baseColor="@android:color/white"
+            app:met_floatingLabel="highlight"
+            app:met_primaryColor="@android:color/white"
+            app:met_singleLineEllipsis="true" />
+
     </LinearLayout>
 
     <Button

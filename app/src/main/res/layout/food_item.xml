@@ -8,6 +8,7 @@
     app:cardElevation="4dp">
 
     <RelativeLayout
+        android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -15,23 +16,39 @@
             android:id="@+id/food_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/loading" />
+            android:layout_margin="5dp"
+            android:scaleType="centerCrop" />
 
-        <TextView
-            android:id="@+id/food_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="#4f0e0d0e"
-            android:gravity="center"
-            android:text="Name of Menu"
-            android:textColor="@android:color/white"
-            android:textSize="20sp"
-
-            />
 
     </RelativeLayout>
 
 
+    <LinearLayout
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#4f0e0d0e"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <TextView
+            android:id="@+id/food_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:gravity="center"
+            android:text="Name of Menu"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+
+
+        <ImageView
+            android:id="@+id/fav"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:src="@drawable/ic_favorite_border_black_24dp"
+            android:tint="@android:color/white" />
+    </LinearLayout>
 </androidx.cardview.widget.CardView>
