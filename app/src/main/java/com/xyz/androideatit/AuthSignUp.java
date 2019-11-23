@@ -59,6 +59,18 @@ public class AuthSignUp extends AppCompatActivity {
     private void verifyCode(String code) {
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
         SignInWithCredential(credential);
+
+//        private void verifyCode(String code) {
+//            try {
+//                PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
+//                signInWithCredential(credential);
+//            }catch (Exception e){
+//                Toast toast = Toast.makeText(this, "Verification Code is wrong", Toast.LENGTH_SHORT);
+//                toast.setGravity(Gravity.CENTER,0,0);
+//                toast.show();
+//            }
+//        }
+
     }
 
     private void SignInWithCredential(PhoneAuthCredential credential) {
@@ -116,10 +128,10 @@ public class AuthSignUp extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            Intent intent = new Intent(this, Home.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        }
+//        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+//            Intent intent = new Intent(this, Home.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//            startActivity(intent);
+//        }
     }
 }

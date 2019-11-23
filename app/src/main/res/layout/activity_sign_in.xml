@@ -34,19 +34,39 @@
             app:met_singleLineEllipsis="true" />
 
 
-        <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
-            android:id="@+id/editPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Password"
-            android:inputType="text"
-            android:textColor="@android:color/white"
-            android:textColorHint="@android:color/white"
-            android:textSize="34sp"
-            app:met_baseColor="@android:color/white"
-            app:met_floatingLabel="highlight"
-            app:met_primaryColor="@android:color/white"
-            app:met_singleLineEllipsis="true" />
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:layout_weight="10">
+
+           <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
+               android:id="@+id/editPassword"
+               android:layout_width="0dp"
+               android:layout_weight="9"
+               android:layout_height="wrap_content"
+               android:hint="Password"
+               android:inputType="textPassword"
+               android:textColor="@android:color/white"
+               android:textColorHint="@android:color/white"
+               android:textSize="34sp"
+               app:met_baseColor="@android:color/white"
+               app:met_floatingLabel="highlight"
+               app:met_primaryColor="@android:color/white"
+               app:met_singleLineEllipsis="true" />
+
+           <ImageButton
+               android:background="@android:color/transparent"
+               android:id="@+id/showHideBtn"
+               android:layout_gravity="center"
+               android:src="@drawable/ic_remove_red_eye_black_24dp"
+               android:layout_weight="1"
+               android:layout_width="0dp"
+               android:layout_height="wrap_content"
+               android:tint="@android:color/white"
+               />
+
+       </LinearLayout>
 
         <com.rey.material.widget.CheckBox
             android:id="@+id/ckbRemeber"

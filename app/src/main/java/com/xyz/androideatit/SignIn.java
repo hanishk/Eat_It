@@ -4,9 +4,12 @@ package com.xyz.androideatit;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +31,8 @@ public class SignIn extends AppCompatActivity {
     EditText edtPhone, edtPassword;
     Button btnSignIn;
     CheckBox ckbRemember;
+    ImageButton showHideBtn;
+    boolean flag = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +43,26 @@ public class SignIn extends AppCompatActivity {
         edtPhone = findViewById(R.id.editPhoneNumber);
         btnSignIn = findViewById(R.id.btnSignIn);
         ckbRemember = findViewById(R.id.ckbRemeber);
+        showHideBtn = findViewById(R.id.showHideBtn);
+
+        showHideBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (flag == true) {
+                    flag = false;
+                    edtPassword.setTransformationMethod(null);
+                    if (edtPassword.getText().length() > 0)
+                        edtPassword.setSelection(edtPassword.getText().length());
+
+                } else {
+                    flag = true;
+                    edtPassword.setTransformationMethod(new PasswordTransformationMethod());
+                    if (edtPassword.getText().length() > 0)
+                        edtPassword.setSelection(edtPassword.getText().length());
+
+                }
+            }
+        });
 
 
         // init paper

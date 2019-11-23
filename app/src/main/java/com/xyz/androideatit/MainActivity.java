@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         textSlogan = findViewById(R.id.txtSlogan);
 
-    //typeface is used to use the fonts style from asset folder
+        //typeface is used to use the fonts style from asset folder
         Typeface face = Typeface.createFromAsset(getAssets(), "fonts/NABILA.TTF");
         textSlogan.setTypeface(face);
 
@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
             final ProgressDialog mDialog = new ProgressDialog(MainActivity.this);
             mDialog.setMessage("Please Wait....");
             mDialog.show();
+            mDialog.setCancelable(false);
 
             table_user.addValueEventListener(new ValueEventListener() {
                 @Override

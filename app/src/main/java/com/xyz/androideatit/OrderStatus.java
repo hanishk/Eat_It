@@ -66,9 +66,6 @@ public class OrderStatus extends AppCompatActivity {
                 orderViewHolder.txtOrderStatus.setText(Common.convertCodeToStatus(request.getStatus()));
                 orderViewHolder.txtOrderAddress.setText(request.getAddress());
                 orderViewHolder.txtOrderPhone.setText(request.getPhone());
-//                orderViewHolder.txtOrderName.setText(request.getName());
-//                orderViewHolder.txtOrderTotal.setText(request.getTotal());
-//                orderViewHolder.txtOrderFood.setText(request.getFoods().toString());
                 orderViewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
                     public void onClick(View view, int position, boolean isLongClik) {

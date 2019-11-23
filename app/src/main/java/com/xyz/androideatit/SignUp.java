@@ -6,8 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -21,9 +24,12 @@ import com.xyz.androideatit.Model.User;
 
 public class SignUp extends AppCompatActivity {
 
-    MaterialEditText edtPhone, edtName, edtPassword;
+    EditText edtPhone, edtName, edtPassword;
     Button SignUp;
     String phoneNumber;
+    ImageButton showHideBtn;
+    boolean flag = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +40,26 @@ public class SignUp extends AppCompatActivity {
         edtName = findViewById(R.id.editName);
         edtPassword = findViewById(R.id.editPassword);
         SignUp = findViewById(R.id.btnSignUp);
+        showHideBtn = findViewById(R.id.showHideBtn);
 
+        showHideBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (flag == true) {
+                    flag = false;
+                    edtPassword.setTransformationMethod(null);
+                    if (edtPassword.getText().length() > 0)
+                        edtPassword.setSelection(edtPassword.getText().length());
+
+                } else {
+                    flag = true;
+                    edtPassword.setTransformationMethod(new PasswordTransformationMethod());
+                    if (edtPassword.getText().length() > 0)
+                        edtPassword.setSelection(edtPassword.getText().length());
+
+                }
+            }
+        });
 
         // init the firebase
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -69,7 +94,6 @@ public class SignUp extends AppCompatActivity {
 
                             if (dataSnapshot.child(edtPhone.getText().toString()).exists()) {
                                 mDialog.dismiss();
-                                Toast.makeText(SignUp.this, "User already exists", Toast.LENGTH_SHORT).show();
                             } else {
                                 mDialog.dismiss();
                                 // add the user with phone number as key value with name and password as child.
