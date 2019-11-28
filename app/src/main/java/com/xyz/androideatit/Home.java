@@ -1,6 +1,8 @@
 package com.xyz.androideatit;
 
+import android.app.Notification;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -8,6 +10,7 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -21,6 +24,8 @@ import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DatabaseReference;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 import com.xyz.androideatit.Common.Common;
 import com.xyz.androideatit.Interface.ItemClickListener;
@@ -39,6 +44,11 @@ import android.view.Menu;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 
 import io.paperdb.Paper;
 
@@ -61,9 +71,12 @@ public class Home extends AppCompatActivity
         toolbar.setTitle("Menu");
         setSupportActionBar(toolbar);
 
+//        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
         // Init Firebase
         database = FirebaseDatabase.getInstance();
         category = database.getReference("Category");
+//        category.keepSynced(true);
 
         // init paper
         Paper.init(this);
@@ -116,11 +129,12 @@ public class Home extends AppCompatActivity
 
         adapter = new FirebaseRecyclerAdapter<Category, MenuViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull MenuViewHolder menuViewHolder, int i,
-                                            @NonNull Category category) {
+            protected void onBindViewHolder(@NonNull final MenuViewHolder menuViewHolder, int i,
+                                            @NonNull final Category category) {
 
 
-                Picasso.get().load(category.getImage()).into(menuViewHolder.imageView);
+                Picasso.get().load(category.getImage()).placeholder(R.drawable.loading).fit().into(menuViewHolder.imageView);
+
                 menuViewHolder.txtMenuName.setText(category.getName());
 //                final Category clickItem = category;
                 menuViewHolder.setItemClickListener(new ItemClickListener() {
@@ -148,14 +162,21 @@ public class Home extends AppCompatActivity
         recycler_menu.setAdapter(adapter);
     }
 
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
+
         } else {
+            Intent startMain = new Intent(Intent.ACTION_MAIN);
+            startMain.addCategory(Intent.CATEGORY_HOME);
+            startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(startMain);
             super.onBackPressed();
         }
+
     }
 
     @Override

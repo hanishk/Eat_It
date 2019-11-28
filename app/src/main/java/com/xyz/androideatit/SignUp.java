@@ -102,7 +102,7 @@ public class SignUp extends AppCompatActivity {
                                 User user = new User(edtName.getText().toString(), edtPassword.getText().toString());
                                 // below this table user have phone number with value name and pasword through obj user
                                 table_user.child(edtPhone.getText().toString()).setValue(user);
-                                Toast.makeText(SignUp.this, "Sign Up Successfully", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(SignUp.this, "Sign Up Successfully", Toast.LENGTH_SHORT).show();
                                 finish();
                             }
                         }
