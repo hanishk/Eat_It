@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     //Check if user not exist in database
+                    // if yes then check for password
                     if (dataSnapshot.child(phone).exists()) {
                         //get user information
                         mDialog.dismiss();
