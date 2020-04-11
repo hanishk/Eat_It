@@ -98,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
                         User user = dataSnapshot.child(phone).getValue(User.class);
                         user.setPhone(phone); //set the phone of user
+                        // if pswd equals then send to home class and declare current user
                         if (user.getPassword().equals(pwd)) {
 
                             Intent homeIntent = new Intent(MainActivity.this, Home.class);
